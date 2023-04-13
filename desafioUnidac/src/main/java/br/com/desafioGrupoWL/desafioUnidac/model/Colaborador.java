@@ -1,5 +1,6 @@
 package br.com.desafioGrupoWL.desafioUnidac.model;
 
+import java.time.LocalDate;
 import java.util.Calendar;
 
 import org.hibernate.validator.constraints.br.CPF;
@@ -20,20 +21,23 @@ public class Colaborador {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
 	
-	@NotBlank
+	@NotBlank(message = "Nome não informado")
 	private String nome;
-	@CPF
-	private String cpf;
-	@NotBlank
-	private String cafe;
-	@NotNull
-	private Calendar data;
 	
-	public Colaborador() {
-		
+	@CPF(message = "CPF inválido")
+	@NotBlank(message = "CPF não informado")
+	private String cpf;
+	
+	@NotBlank(message = "campo não informado")
+	private String cafe;
+	
+	@NotNull
+	private LocalDate data;
+	
+	public Colaborador() {	
 	}
 	
-	public Colaborador(long id, String nome, String cpf, String cafe, Calendar data) {
+	public Colaborador(long id, String nome, String cpf, String cafe, LocalDate data) {
 		this.id = id;
 		this.nome = nome;
 		this.cpf = cpf;
@@ -65,10 +69,10 @@ public class Colaborador {
 	public void setcafe(String cafe) {
 		this.cafe = cafe;
 	}
-	public Calendar getData() {
+	public LocalDate getData() {
 		return data;
 	}
-	public void setData(Calendar data) {
+	public void setData(LocalDate data) {
 		this.data = data;
 	}
 	
