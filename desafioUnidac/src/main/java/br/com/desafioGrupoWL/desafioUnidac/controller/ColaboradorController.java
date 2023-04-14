@@ -44,7 +44,7 @@ public class ColaboradorController {
 	}
 
 	@PutMapping()
-	public ResponseEntity<Colaborador> atualizarColaborador(@RequestBody Colaborador colaborador) {
+	public ResponseEntity<Colaborador> atualizarColaborador(@RequestBody @Valid Colaborador colaborador) {
 		return ResponseEntity.status(200).body(colaboradorService.atualizarColaborador(colaborador));
 	}
 

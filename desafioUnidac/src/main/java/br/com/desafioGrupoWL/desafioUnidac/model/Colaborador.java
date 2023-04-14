@@ -1,14 +1,15 @@
 package br.com.desafioGrupoWL.desafioUnidac.model;
 
 import java.time.LocalDate;
-import java.util.Calendar;
 
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.br.CPF;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -21,17 +22,18 @@ public class Colaborador {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
 	
-	@NotBlank(message = "Nome não informado")
+	@Length(min = 3, message = "mínimo 3 caracteres")
 	private String nome;
 	
 	@CPF(message = "CPF inválido")
-	@NotBlank(message = "CPF não informado")
+	@Length(min = 11, max = 11, message = "deve conter 11 caracteres")
 	private String cpf;
 	
 	@NotBlank(message = "campo não informado")
 	private String cafe;
 	
 	@NotNull
+	@FutureOrPresent
 	private LocalDate data;
 	
 	public Colaborador() {	
