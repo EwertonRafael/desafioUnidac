@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,7 +25,8 @@ import br.com.desafioGrupoWL.desafioUnidac.service.ColaboradorService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/colaborador")
+@RequestMapping()
+@CrossOrigin("*")
 public class ColaboradorController {
 
 	private ColaboradorService colaboradorService;
@@ -33,24 +35,24 @@ public class ColaboradorController {
 		this.colaboradorService = colaboradorService;
 	}
 
-	@GetMapping
+	@GetMapping("/colaborador")
 	public ResponseEntity<List<Colaborador>> listarColaboradores() {
 		return ResponseEntity.status(200).body(colaboradorService.listarColaborador());
 	}
 
-	@PostMapping()
+	@PostMapping("/cadastrar")
 	public ResponseEntity<Colaborador> criarColaborador(@RequestBody @Valid Colaborador colaborador) {
 		return ResponseEntity.status(201).body(colaboradorService.criarColaborador(colaborador));
 	}
 
-	@PutMapping()
+	@PutMapping("/atualizar")
 	public ResponseEntity<Colaborador> atualizarColaborador(@RequestBody @Valid Colaborador colaborador) {
 		return ResponseEntity.status(200).body(colaboradorService.atualizarColaborador(colaborador));
 	}
 
-	@DeleteMapping("/{id}")
-	public ResponseEntity<Colaborador> deletarColaborador(@PathVariable Long id) {
-		colaboradorService.deletarColaborador(id);
+	@DeleteMapping("deletar/{id}")
+	public ResponseEntity<Colaborador> deletarColaborador(@PathVariable Long id, Colaborador colaborador) {
+		colaboradorService.deletarColaborador(id, colaborador);
 		return ResponseEntity.status(204).build();
 	}
 	
